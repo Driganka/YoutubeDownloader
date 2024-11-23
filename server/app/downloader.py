@@ -39,22 +39,22 @@ def fetch_formats(url: str) -> list:
 # Step 2 :- Selecting the Best Format
 # We will prioritize based on resolution, frame rate, and whether the format has audio.
 # -- Adding a helper function to select the best format --
-def select_best_format(formats: list) -> tuple:
+def select_best_format(formats: list, max_resolution=4320) -> tuple:
     """
-    Select the best video and audio format based on quality.
+    Select the best video and audio format with fallback.
 
     Args:
         formats (list): List of formats fetched from yt-dlp
+        max_resolution (int): Maximum resolution to consider (e.g., 4320 for 8K)
 
     Returns:
         tuple: Best video and audio format IDs
     """
-    video_formats = [f for f in formats if f.get('vcodec') != 'none']
+    video_formats = [f for f in formats if f.get('vcodec') != 'none' and f.get('height', 0) <= max_resolution]
     audio_formats = [f for f in formats if f.get('acodec') != 'none']
 
     # Sort video formats by resolution and FPS (highest first)
     video_formats.sort(key=lambda f: (f.get('height', 0), f.get('fps', 0)), reverse=True)
-
     # Sort audio formats by bitrate (highest first)
     audio_formats.sort(key=lambda f: f.get('abr', 0), reverse=True)
 
