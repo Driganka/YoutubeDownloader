@@ -1,0 +1,19 @@
+# Ignore Python virtual environment
+venv/
+
+# Igore the static folder
+static/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+
+# Ignore logs or temporary files
+*.log
+
+# Ignore your IDE configuration (examples for VSCode and PyCharm)
+.vscode/
+.idea/
+
+# Ignore environment-specific files
+.env
