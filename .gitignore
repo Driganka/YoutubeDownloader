@@ -17,3 +17,6 @@ __pycache__/
 
 # Ignore environment-specific files
 .env
+
+# Ignore DS_Store files created by macOS
+.DS_Store
