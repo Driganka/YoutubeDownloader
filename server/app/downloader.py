@@ -6,10 +6,19 @@ YDL_OPTIONS = {
     'format': 'bestvideo+bestaudio/best',  # Download best quality video + audio
     'outtmpl': 'static/%(title)s.%(ext)s',  # Save file in 'static' folder
     'merge_output_format': 'mp4',          # Merge video and audio into MP4 format
-    'postprocessors': [{
-        'key': 'FFmpegVideoConvertor',
-        'preferedformat': 'mp4',           # Ensure output format is MP4
-    }],
+    'postprocessors': [
+        {
+            'key': 'FFmpegVideoConvertor',
+            'preferedformat': 'mp4',       # Ensure the output is in MP4 container
+        },
+        {
+            # Re-encode video to H.264 and audio to AAC for maximum compatibility
+            'key': 'FFmpegVideoRemuxer',
+            'acodec': 'aac',              # Explicitly re-encode audio to AAC
+            'vcodec': 'libx264',          # Explicitly re-encode video to H.264
+            'preferedformat': 'mp4',      # Ensure the output remains in MP4
+        },
+    ],
 }
 
 # Step 1:- Retrieve All Available Formats
